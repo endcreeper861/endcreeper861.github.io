@@ -3,173 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人博客</title>
+    <meta name="description" content="endcreeper861 的个人主页 — 一名热爱编程的开发者。">
+    <title>endcreeper861 · 个人主页</title>
     <style>
-        /* ========== 全局样式 ========== */
+        /* ========== 基础 ========== */
+        :root {
+            --bg: #fafafa;
+            --card: #ffffff;
+            --text: #18181b;
+            --muted: #52525b;
+            --line: #e4e4e7;
+            --accent: #4f46e5;
+            --accent-soft: #eef2ff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
-            /* 蓝色渐变背景 */
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4b79c4 100%);
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 64px 0;
+        }
+
+        /* ========== 顶部导航 ========== */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(250, 250, 250, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 14px 24px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #ffffff;
+            justify-content: space-between;
+        }
+
+        .nav .logo {
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ========== 首屏 ========== */
+        .hero {
+            padding: 96px 0 72px;
             text-align: center;
         }
 
-        /* ========== 内容容器 ========== */
-        .container {
-            max-width: 700px;
-            padding: 40px 30px;
-        }
-
-        /* 大标题欢迎语 */
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1.2s ease;
-        }
-
-        /* 分隔线 */
-        .divider {
-            width: 80px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 2px;
+        .hero .avatar {
+            width: 84px;
+            height: 84px;
             margin: 0 auto 24px;
-            animation: growLine 1.2s ease;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
         }
 
-        /* 小字介绍 */
-        p.intro {
-            font-size: 1.05rem;
-            line-height: 1.9;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 36px;
-            animation: fadeIn 1.4s ease;
+        .hero h1 {
+            font-size: clamp(1.9rem, 6vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: 0.01em;
         }
 
-        /* 联系方式 */
-        .contact {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 12px;
+        .hero .tagline {
+            margin-top: 12px;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            color: var(--muted);
         }
 
-        .contact a {
+        .hero .actions {
+            margin-top: 28px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
             display: inline-block;
-            margin-top: 10px;
-            padding: 10px 26px;
-            font-size: 1.05rem;
-            color: #1e3c72;
-            background: #ffffff;
-            border-radius: 30px;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 0.95rem;
             text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeIn 1.6s ease;
+            transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
         }
 
-        .contact a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
         }
 
-        /* 底部日期与时间 */
-        .datetime {
-            margin-top: 32px;
+        .btn-primary:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: var(--card);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ========== 区块标题 ========== */
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        /* ========== 技能 ========== */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            padding: 8px 16px;
+            border-radius: 999px;
+            background: var(--card);
+            border: 1px solid var(--line);
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            animation: fadeIn 1.8s ease;
+            color: var(--muted);
+            transition: color 0.15s, border-color 0.15s;
         }
 
-        /* ========== 动画 ========== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .skill:hover {
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
-        @keyframes growLine {
-            from { width: 0; opacity: 0; }
-            to   { width: 80px; opacity: 1; }
+        /* ========== 项目 ========== */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
         }
 
-        /* ========== 响应式 ========== */
-        @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            p.intro { font-size: 0.95rem; }
+        .project {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .project:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(24, 24, 27, 0.06);
+        }
+
+        .project h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .project p {
+            font-size: 0.92rem;
+            color: var(--muted);
+            flex: 1;
+        }
+
+        .project .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project .tags span {
+            font-size: 0.78rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .project a.more {
+            font-size: 0.88rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .project a.more:hover {
+            text-decoration: underline;
+        }
+
+        /* ========== 页脚 ========== */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 32px 0 40px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        footer .links {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* ========== 滚动淡入（JS 配合） ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* ========== 移动端 ========== */
+        @media (max-width: 520px) {
+            .nav ul {
+                gap: 16px;
+            }
+
+            .hero {
+                padding: 72px 0 56px;
+            }
+
+            section {
+                padding: 48px 0;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 大标题欢迎语 -->
-        <h1 id="greeting">欢迎来到我的个人博客</h1>
 
-        <!-- 分隔线 -->
-        <div class="divider"></div>
-
-        <!-- 小字介绍 -->
-        <p class="intro">
-            你好！我是 endcreeper861，一名热爱编程与分享的开发者。<br>
-            这里记录我的学习笔记、项目心得与生活点滴，欢迎常来看看！
-        </p>
-
-        <!-- 联系方式 -->
-        <div class="contact">
-            如有任何问题或建议，欢迎通过邮箱联系我：
-            <br>
-            <a href="mailto:3130450154@qq.com">📧 3130450154@qq.com</a>
+    <!-- 顶部导航 -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a class="logo" href="#top">endcreeper861</a>
+            <ul>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">项目</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <!-- 当前时间 -->
-        <div class="datetime" id="datetime"></div>
-    </div>
+    <main id="top" class="container">
+
+        <!-- 首屏 -->
+        <header class="hero">
+            <div class="avatar" aria-hidden="true">E</div>
+            <h1>endcreeper861</h1>
+            <p class="tagline">热爱编程的开发者 · 用代码把想法变成现实</p>
+            <div class="actions">
+                <a class="btn btn-primary" href="https://github.com/endcreeper861" target="_blank" rel="noopener">GitHub ↗</a>
+                <a class="btn btn-ghost" href="#projects">查看项目</a>
+            </div>
+        </header>
+
+        <!-- 关于 -->
+        <section id="about" class="reveal">
+            <h2 class="section-title">关于我</h2>
+            <p class="section-sub">
+                你好，我是 endcreeper861，一名持续学习中的开发者。喜欢研究网页技术、
+                写自动化脚本、折腾开发环境，也喜欢把踩过的坑整理成笔记。这里是我的小站，
+                记录我做过的东西和正在做的事。
+            </p>
+        </section>
+
+        <!-- 技能 -->
+        <section id="skills" class="reveal">
+            <h2 class="section-title">技能</h2>
+            <p class="section-sub">日常工作中常用的一些技术。</p>
+            <div class="skills">
+                <span class="skill">HTML / CSS</span>
+                <span class="skill">JavaScript</span>
+                <span class="skill">Python</span>
+                <span class="skill">Git</span>
+                <span class="skill">Linux</span>
+                <span class="skill">Markdown</span>
+            </div>
+        </section>
+
+        <!-- 项目 -->
+        <section id="projects" class="reveal">
+            <h2 class="section-title">项目</h2>
+            <p class="section-sub">一些正在做或做过的尝试，更多内容见我的 GitHub。</p>
+            <div class="projects">
+
+                <article class="project">
+                    <h3>dotfiles</h3>
+                    <p>开发环境配置文件集合：终端、编辑器、Shell 脚本，记录一套可复现的工作环境。</p>
+                    <div class="tags"><span>Shell</span><span>配置管理</span></div>
+                    <a class="more" href="https://github.com/endcreeper861" target="_blank" rel="noopener">查看仓库 →</a>
+                </article>
+
+                <article class="project">
+                    <h3>小工具集</h3>
+                    <p>日常开发中用到的自动化小脚本合集，比如批量重命名、文件整理、文本处理等。</p>
+                    <div class="tags"><span>Python</span><span>自动化</span></div>
+                    <a class="more" href="https://github.com/endcreeper861" target="_blank" rel="noopener">查看仓库 →</a>
+                </article>
+
+                <article class="project">
+                    <h3>学习笔记</h3>
+                    <p>整理编程学习过程中的笔记与踩坑记录，持续更新，作为自己的知识库。</p>
+                    <div class="tags"><span>Markdown</span><span>文档</span></div>
+                    <a class="more" href="https://github.com/endcreeper861" target="_blank" rel="noopener">查看仓库 →</a>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="links">
+            <a href="https://github.com/endcreeper861" target="_blank" rel="noopener">GitHub</a>
+            <a href="mailto:3130450154@qq.com">邮箱</a>
+        </div>
+        <p>© <span id="year">2025</span> endcreeper861 · 用 ❤ 构建</p>
+    </footer>
 
     <script>
-        // ========== 根据时间段显示不同问候语 ==========
-        function updateGreeting() {
-            var hour = new Date().getHours();
-            var greeting = "欢迎来到我的个人博客";
-            if (hour >= 5 && hour < 9) {
-                greeting = "早上好！欢迎来到我的个人博客";
-            } else if (hour >= 9 && hour < 12) {
-                greeting = "上午好！欢迎来到我的个人博客";
-            } else if (hour >= 12 && hour < 18) {
-                greeting = "下午好！欢迎来到我的个人博客";
-            } else if (hour >= 18 || hour < 5) {
-                greeting = "晚上好！欢迎来到我的个人博客";
-            }
-            document.getElementById("greeting").textContent = greeting;
-        }
+        // 页脚年份自动更新
+        document.getElementById("year").textContent = String(new Date().getFullYear());
 
-        // ========== 实时显示日期时间 ==========
-        function updateDateTime() {
-            var now = new Date();
-            var days = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-            var pad = function (n) { return n < 10 ? "0" + n : n; };
-            var str =
-                now.getFullYear() + " 年 " + (now.getMonth() + 1) + " 月 " +
-                now.getDate() + " 日 " + days[now.getDay()] + " " +
-                pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
-            document.getElementById("datetime").textContent = "今天是 " + str;
+        // 滚动进入视口时淡入（尊重系统"减少动态效果"偏好）
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            document.querySelectorAll(".reveal").forEach(function (el) {
+                el.classList.add("visible");
+            });
+        } else {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll(".reveal").forEach(function (el) {
+                observer.observe(el);
+            });
         }
-
-        // 页面加载时执行，并每秒刷新一次时间
-        updateGreeting();
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
     </script>
 </body>
 </html>
