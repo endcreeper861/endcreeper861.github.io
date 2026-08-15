@@ -161,6 +161,39 @@
             color: var(--accent);
         }
 
+        .btn-github {
+            background: #24292e;
+            color: #fff;
+        }
+
+        .btn-github:hover {
+            background: #1b1f23;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(36, 41, 46, 0.25);
+        }
+
+        .btn-qq {
+            background: #12B7F5;
+            color: #fff;
+        }
+
+        .btn-qq:hover {
+            background: #0da9e3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(18, 183, 245, 0.3);
+        }
+
+        .btn-email {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .btn-email:hover {
+            background: #e0e7ff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+
         /* ========== 区块标题 ========== */
         .section-title {
             font-size: 1.35rem;
@@ -263,23 +296,6 @@
             font-size: 0.88rem;
         }
 
-        footer .links {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        footer a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: color 0.15s;
-        }
-
-        footer a:hover {
-            color: var(--accent);
-        }
-
         /* ========== 滚动淡入（JS 配合） ========== */
         .reveal {
             opacity: 0;
@@ -346,8 +362,9 @@
             <h1>endcreeper861</h1>
             <p class="tagline">热爱编程的开发者 · 用代码把想法变成现实</p>
             <div class="actions">
-                <a class="btn btn-primary" href="https://github.com/endcreeper861" target="_blank" rel="noopener">GitHub ↗</a>
-                <a class="btn btn-ghost" href="#projects">查看项目</a>
+                <a class="btn btn-github" href="https://github.com/endcreeper861" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-qq" href="https://qm.qq.com/q/lgQQfj2xKo" target="_blank" rel="noopener">QQ</a>
+                <a class="btn btn-email" href="mailto:3130450154@qq.com">3130450154@qq.com</a>
             </div>
         </header>
 
@@ -409,11 +426,6 @@
 
     <!-- 页脚 -->
     <footer>
-        <div class="links">
-            <a href="https://github.com/endcreeper861" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://qm.qq.com/q/lgQQfj2xKo" target="_blank" rel="noopener">QQ</a>
-            <a href="mailto:3130450154@qq.com">邮箱</a>
-        </div>
         <p>© <span id="year">2025</span> endcreeper861 · 用 ❤ 构建</p>
     </footer>
 
