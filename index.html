@@ -44,20 +44,6 @@
             overflow-x: hidden;
         }
 
-        /* CRT 扫描线（极淡） */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            pointer-events: none;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(255, 255, 255, 0.02) 0 1px,
-                transparent 1px 3px
-            );
-        }
-
         ::selection {
             background: var(--acid);
             color: #0a0a0b;
@@ -122,8 +108,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(10, 10, 11, 0.82);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 11, 0.92);
             border-bottom: 1px solid var(--line);
         }
 
@@ -307,13 +292,22 @@
         .hero-title::before {
             color: var(--cyan);
             z-index: -1;
+            will-change: transform;
             animation: glitch-a 3.1s infinite steps(1, end);
         }
 
         .hero-title::after {
             color: var(--pink);
             z-index: -2;
+            will-change: transform;
             animation: glitch-b 2.6s infinite steps(1, end);
+        }
+
+        /* 首屏滚出视口后暂停故障动画，避免空转耗性能 */
+        .hero.offscreen .hero-title::before,
+        .hero.offscreen .hero-title::after,
+        .hero.offscreen .hero-scroll {
+            animation-play-state: paused;
         }
 
         @keyframes glitch-a {
@@ -1076,11 +1070,25 @@
         // 页脚年份自动更新
         document.getElementById("year").textContent = String(new Date().getFullYear());
 
-        // 回到顶部按钮显隐
+        // 滚动相关：统一用 rAF 节流，每帧最多处理一次
         var toTop = document.getElementById("toTop");
-        window.addEventListener("scroll", function () {
-            toTop.classList.toggle("show", window.scrollY > 480);
-        }, { passive: true });
+        var hero = document.querySelector(".hero");
+        var ticking = false;
+
+        function onScroll() {
+            if (ticking) { return; }
+            ticking = true;
+            requestAnimationFrame(function () {
+                var y = window.scrollY;
+                toTop.classList.toggle("show", y > 480);
+                // 首屏完全滚出视口后暂停故障动画
+                hero.classList.toggle("offscreen", y > window.innerHeight);
+                ticking = false;
+            });
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
 
         // 右侧菱形导航高亮当前区块
         var sideLinks = document.querySelectorAll(".side-nav a");
